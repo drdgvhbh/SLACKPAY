@@ -21,15 +21,17 @@ const addContact = require('./addcontact.js');
 * @returns {object}
 */
 module.exports = async (user, channel, text = '', command = {}, botToken = null) => {
+  const contactData = await addContact(user, channel, text, command, botToken);
   message(botToken, channel, 'Okay. Adding ' + text + ' to contacts.', () => {});
   const client = await clientFactory();
   let responseText = text + ' was added to contacts.';
   try {
-    const response = await client.post('/money-requests/send/', {
+    console.log(contactData);
+    const response = await client.post('/money-requests/send', {
       "sourceMoneyRequestId": "sourceidxxx",
       "requestedFrom": {
-            "contactId": "CAxRANd0MtqJ",
-            "contactHash": "64bc000a103n8621ot9he6r48rd8a999"
+            "contactId": contactData.contactId,
+            "contactHash": contactData.contactHash
         },
       "amount": 400,
       "currency": "CAD",
@@ -38,7 +40,7 @@ module.exports = async (user, channel, text = '', command = {}, botToken = null)
       "supressResponderNotifications": false
     });  
   } catch (err) {
-    responseText = 'Could not add' + text + 'as a contact.';
+    //console.log(err);
   }
   const result = {
     text: responseText,

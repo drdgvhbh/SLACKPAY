@@ -19,9 +19,8 @@ const message = require('../../utils/message.js');
 * @returns {object}
 */
 module.exports = async (user, channel, text = '', command = {}, botToken = null) => {
-  message(botToken, channel, 'Okay. Adding ' + text + ' to contacts.', () => {});
   const client = await clientFactory();
-  let responseText = text + ' was added to contacts.';
+  const result = {};
   try {
     const response = await client.post('/contacts', {
       "contactId": "string",
@@ -30,23 +29,17 @@ module.exports = async (user, channel, text = '', command = {}, botToken = null)
       "language": "en",
       "notificationPreferences": [
         {
-          "handle": "6478623697",
-          "handleType": "sms",
+          "handle": text,
+          "handleType": "email",
           "active": true
         }
       ]
     });  
-    console.log(response.data.contactId);
+    result['contactId'] = response.data.contactId;
+    result['contactHash'] = response.data.contactHash;
+    console.log(result);
   } catch (err) {
-    responseText = 'Could not add' + text + 'as a contact.';
+    console.log(err);
   }
-
-  const result = {
-    text: responseText,
-    attachments: [
-      // You can customize your messages with attachments.
-      // See https://api.slack.com/docs/message-attachments for more info.
-    ]
-  };
   return result;
 };
