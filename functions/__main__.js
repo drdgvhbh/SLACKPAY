@@ -8,7 +8,7 @@ const ENV = {
   SLACK_OAUTH_SCOPE: process.env.SLACK_OAUTH_SCOPE || ''
 };
 
-
+const jsrasign = require('jsrsasign');
 
 
 /**

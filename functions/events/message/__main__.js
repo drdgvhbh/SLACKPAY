@@ -1,18 +1,13 @@
 const lib = require('lib')({token: process.env.STDLIB_TOKEN});
 
-const sha256 = require('crypto-js/sha256');
-const hmacSHA512 = require('crypto-js/hmac-sha512');
-const request = require('request');
-const crypto = require('crypto');
-const Base64 = require('js-base64').Base64;
 
-const salt = generateSalt();
+
 const options = {
   url: 'https://gateway-web.beta.interac.ca/publicapi/api/v1/access-tokens',
   headers: {
-    secretKey: Base64.encode(sha256(generateSalt() + ':' + 'LWRTZP8IxIxUiBP44lrC5FVs8F2n1Q7B9gSSMd7vVJ44') + ''),
-    salt: salt,
-    thirdPartyAccessId: 'CA1TAJUfdZUFvS95'
+    secretKey: '',
+    salt: '',
+    thirdPartyAccessId: ''
   }
 };
 
@@ -44,14 +39,17 @@ function generateSalt() {
 * @returns {object}
 */
 module.exports = (user, channel, text = '', event = {}, botToken = null, callback) => {
-  request(options, (error, response, body) => {
+  //console.log(sha256(generateSalt() + ':' + 'LWRTZP8IxIxUiBP44lrC5FVs8F2n1Q7B9gSSMd7vVJ44') + '');
+  console.log(options);
+  request.get(options, (error, response, body) => {
     console.log('SFUIOSHGIEHRFIOF');
+    var info = JSON.parse(body);
+    console.log(info);
     if (!error && response.statusCode == 200) {
-      var info = JSON.parse(body);
-      console.log(info);
+
     } 
 
-    console.log(error, response, body);
+    //  console.log(error, response, body);
     callback(null, {});
   });
 /*   console.log('adfssf');
