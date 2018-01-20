@@ -31,7 +31,7 @@ module.exports = async () => {
     let response = await axiosAccessTokenClient.get('/access-tokens', {});
     accessToken = response.data.access_token;
   }
-  console.log(accessToken);
+ // console.log(accessToken);
   const instance = axios.create({
       baseURL: 'https://gateway-web.beta.interac.ca/publicapi/api/v2/',
       timeout: 1000,

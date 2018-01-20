@@ -1,6 +1,7 @@
 const lib = require('lib')({token: process.env.STDLIB_TOKEN});
 const clientFactory = require('../../helpers/clientFactory.js');
 const message = require('../../utils/message.js');
+const uuidv1 = require('uuid/v1');
 
 /**
 * /addContact
@@ -24,7 +25,7 @@ module.exports = async (user, channel, text = '', command = {}, botToken = null)
   try {
     const response = await client.post('/contacts', {
       "contactId": "string",
-      "contactName": text,
+      "contactName": uuidv1(),
       "contactHash": "string",
       "language": "en",
       "notificationPreferences": [
