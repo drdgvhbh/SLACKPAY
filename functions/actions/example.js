@@ -1,5 +1,6 @@
 const lib = require('lib')({token: process.env.STDLIB_TOKEN});
 
+
 /**
 * example.js
 *
@@ -17,7 +18,6 @@ const lib = require('lib')({token: process.env.STDLIB_TOKEN});
 * @returns {object}
 */
 module.exports = (user, channel, action = {}, botToken = null, callback) => {
-
   callback(null, {
     text: `Hello, <@${user}>!\nThis text will overwrite the original interactive message`,
     attachments: [{
