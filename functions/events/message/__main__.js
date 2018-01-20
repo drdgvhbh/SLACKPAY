@@ -1,25 +1,14 @@
 const lib = require('lib')({token: process.env.STDLIB_TOKEN});
+/* const clientFactory = require('../../../helpers/clientFactory.js');
 
 const crypto = require("crypto");
 const axios = require('axios');
 
 const salt = '1234';
+let accessToken = '';
 
 const encryptedKey = crypto.createHash("sha256"); 
 encryptedKey.update(salt + ':OAzLQhkIh3cg8CFJimsHO2NTwPwOTmdgKBWRlF_1pr8', 'utf-8'); 
-/* console.log(encryptedKey.digest("base64")); */
-
-/* const instance = axios.create({
-  baseURL: 'https://gateway-web.beta.interac.ca/publicapi/api/v1/',
-  timeout: 1000,
-  headers: {
-    accessToken: encryptedKey.digest('base64'),
-    thirdPartyAccessId: 'CA1TABcP8Z47Dh5J',
-    requestId: 'asdf',
-    deviceId: 'fdsa',
-    apiRegistrationId: 'CA1AR29fqE8Qn4by'
-  }
-}); */
 
 const axiosAccessTokenClient = axios.create({
   baseURL: 'https://gateway-web.beta.interac.ca/publicapi/api/v1/',
@@ -30,6 +19,21 @@ const axiosAccessTokenClient = axios.create({
     thirdPartyAccessId : 'CA1TABcP8Z47Dh5J'
   }
 });
+
+function getClient() {
+  const instance = axios.create({
+    baseURL: 'https://gateway-web.beta.interac.ca/publicapi/api/v2/',
+    timeout: 1000,
+    headers: {
+      accessToken: 'Bearer ' + accessToken,
+      thirdPartyAccessId: 'CA1TABcP8Z47Dh5J',
+      requestId: 'requestId123',
+      deviceId: 'deviceId123',
+      apiRegistrationId: 'CA1AR29fqE8Qn4by'
+    }
+  });
+  return instance;
+} */
 
 /**
 * message event
@@ -58,18 +62,34 @@ module.exports = (user, channel, text = '', event = {}, botToken = null, callbac
     }  */
 
     //  console.log(error, response, body);
-    console.log('testing!');
-    axiosAccessTokenClient.get('/access-tokens', {})
+/*     axiosAccessTokenClient.get('/access-tokens', {})
     .then(response => {
-      console.log('???');
-      console.log(response);
-      callback(null, {});
+      accessToken = response.data.access_token;
+      const client = getClient();
+      console.log('HELLO WORK');
+      client.post('/contacts', {
+        "contactName": "Someone Fakename",
+        "language": "en",
+        "notificationPreferences": [
+          {
+            "handle": "6478623697",
+            "handleType": "sms",
+            "active": true
+          }
+        ]
+      }).then(response => {
+        console.log(response);
+        callback(null, {});
+      }).catch(error => {
+        console.log(error);
+        callback(null, {});
+      });
     })
     .catch(error => {
-      console.log('xd');
       console.log(error);
       callback(null, {});
     });
+    callback(null, {}); */
 /*     instance.post('/contacts', {})
     .then(response => {
       console.log('???');
