@@ -5,12 +5,13 @@
   "author": "drdgvhbh <drdgvhbh@gmail.com>",
   "main": "functions/__main__.js",
   "dependencies": {
+    "async": "^2.1.5",
+    "crypto-js": "^3.1.9-1",
+    "ejs": "^2.5.6",
     "lib": "^3.0.1",
     "mime": "^1.3.4",
-    "request": "^2.79.0",
-    "slack": "^8.2.1",
-    "async": "^2.1.5",
-    "ejs": "^2.5.6"
+    "request": "^2.83.0",
+    "slack": "^8.2.1"
   },
   "private": true,
   "stdlib": {
@@ -23,5 +24,8 @@
       "user": []
     },
     "source": "slack"
+  },
+  "devDependencies": {
+    "eslint-config-recommended": "^2.0.0"
   }
 }
