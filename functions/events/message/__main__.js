@@ -6,14 +6,14 @@ const request = require('request');
 const crypto = require('crypto');
 const Base64 = require('js-base64').Base64;
 
+const salt = generateSalt();
 const options = {
   url: 'https://gateway-web.beta.interac.ca/publicapi/api/v1/access-tokens',
   headers: {
-    secretKey: 'LWRTZP8IxIxUiBP44lrC5FVs8F2n1Q7B9gSSMd7vVJ44',
-    salt: Base64.encode(sha256(generateSalt() + ':' + 'LWRTZP8IxIxUiBP44lrC5FVs8F2n1Q7B9gSSMd7vVJ44') + ''),
+    secretKey: Base64.encode(sha256(generateSalt() + ':' + 'LWRTZP8IxIxUiBP44lrC5FVs8F2n1Q7B9gSSMd7vVJ44') + ''),
+    salt: salt,
     thirdPartyAccessId: 'CA1TAJUfdZUFvS95'
-  },
-  method: 'GET'
+  }
 };
 
 
@@ -44,25 +44,27 @@ function generateSalt() {
 * @returns {object}
 */
 module.exports = (user, channel, text = '', event = {}, botToken = null, callback) => {
-/*   console.log('asdf');
   request(options, (error, response, body) => {
-    console.log('fdsa');
+    console.log('SFUIOSHGIEHRFIOF');
     if (!error && response.statusCode == 200) {
       var info = JSON.parse(body);
       console.log(info);
-        // Only send a response to certain messages
-      if (text.match(/hey|hello|hi|sup/i)) {
-        callback(null, {
-          text: Base64.encode(sha256(generateSalt() + ':' + 'LWRTZP8IxIxUiBP44lrC5FVs8F2n1Q7B9gSSMd7vVJ44') + '')
-        });
-      } else {
-        callback(null, {});
-      }
-    }
-  }); */
-  console.log('adfssf');
-  callback(null, {});
+    } 
 
+    console.log(error, response, body);
+    callback(null, {});
+  });
+/*   console.log('adfssf');
+  callback(null, {}); */
+
+  // Only send a response to certain messages
+  // if (text.match(/hey|hello|hi|sup/i)) {
+  //   callback(null, {
+  //     text: "lol"
+  //   });
+  // } else {
+  //   callback(null, {});
+  // }
 
 
 };
