@@ -22,36 +22,24 @@ const addContact = require('./addcontact.js');
 * @returns {object}
 */
 module.exports = async (user, channel, text = '', command = {}, botToken = null) => {
+  console.log(botToken   + " " + channel);
   const contactData = await addContact(user, channel, text, command, botToken);
   message(botToken, channel, 'Okay. Adding ' + text + ' to contacts.', () => {});
   const client = await clientFactory(); 
-  let responseText = text + ' was added to contacts.';
-  try {
-    const pileOfTrash = (uuidv1() + '').replace(/-/g, '');
-    console.log(pileOfTrash);
-  //  console.log(contactData);
-    const response = await client.post('/money-requests/send', {
-      "sourceMoneyRequestId": pileOfTrash,
-      "requestedFrom": {
-            "contactId": contactData.contactId,
-            "contactHash": contactData.contactHash
-        },
-      "amount": 400,
-      "currency": "CAD",
-      "editableFulfillAmount": false,
-      "expiryDate": "2018-01-30T16:12:12.721Z",
-      "supressResponderNotifications": false
-    }); 
-    message(botToken, channel, 'Congratulations! Your money has been sent to ' + text, () => {});
-  } catch (err) {
-    //console.log(err);
-  }
-  const result = {
-    text: responseText,
-    attachments: [
-      // You can customize your messages with attachments.
-      // See https://api.slack.com/docs/message-attachments for more info.
-    ]
-  };
-  return result;
+  message(botToken, channel, text + ' was added to contacts.', () => {});
+  const response = await client.post('/money-requests/send', {
+    "sourceMoneyRequestId": uuidv1().replace(/-/g, ''),
+    "requestedFrom": {
+          "contactId": contactData.contactId,
+          "contactHash": contactData.contactHash
+      },
+    "amount": 322,
+    "currency": "CAD",
+    "editableFulfillAmount": false,
+    "expiryDate": "2018-01-30T16:12:12.721Z",
+    "supressResponderNotifications": false,
+    "returnURL": 'https://drdgvhbh.lib.id/slackpay@dev/notifications/'
+  });  
+
+  return {text: 'Congratulations! Your request for money has been sent to ' + text + '.'};
 };

@@ -34,12 +34,12 @@ module.exports = async () => {
  // console.log(accessToken);
   const instance = axios.create({
       baseURL: 'https://gateway-web.beta.interac.ca/publicapi/api/v2/',
-      timeout: 1000,
+      timeout: 5000,
       headers: {
         accessToken: 'Bearer ' + accessToken,
         thirdPartyAccessId: 'CA1TABcP8Z47Dh5J',
-        requestId: 'requestid12345',
-        deviceId: 'deviceid12345',
+        requestId: 'requestid123456',
+        deviceId: 'deviceid123456',
         apiRegistrationId: 'CA1AR29fqE8Qn4by'
       }
     });

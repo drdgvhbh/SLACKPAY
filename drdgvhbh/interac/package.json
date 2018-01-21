@@ -1,0 +1,19 @@
+{
+  "name": "interac",
+  "version": "0.0.0",
+  "description": "",
+  "author": "drdgvhbh <drdgvhbh@gmail.com>",
+  "main": "functions/__main__.js",
+  "dependencies": {},
+  "private": true,
+  "stdlib": {
+    "build": "faaslang",
+    "name": "drdgvhbh/interac",
+    "timeout": 10000,
+    "publish": true,
+    "personalize": {
+      "keys": [],
+      "user": []
+    }
+  }
+}

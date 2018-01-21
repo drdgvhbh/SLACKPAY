@@ -38,9 +38,9 @@ module.exports = async (user, channel, text = '', command = {}, botToken = null)
     });  
     result['contactId'] = response.data.contactId;
     result['contactHash'] = response.data.contactHash;
-    console.log(result);
+    //console.log(result);
   } catch (err) {
-    console.log(err);
+    //console.log(err);
   }
   return result;
 };
