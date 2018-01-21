@@ -9,9 +9,10 @@ const request = require('request');
 const formatMessage = require('./format_message.js');
 
 module.exports = (token, channel, text, callback) => {
-
+  console.log("message crap");
+  console.log(text);
   let data = formatMessage(token, channel, text);
-
+  console.log(token, channel, text, callback);
   if (!text) {
     return callback(null, data);
   }
@@ -30,7 +31,7 @@ module.exports = (token, channel, text, callback) => {
     uri: 'https://slack.com/api/chat.postMessage',
     form: data
   }, (err, result) => {
-
+    console.log(err, result);
     if (err) {
       return callback(err);
     }

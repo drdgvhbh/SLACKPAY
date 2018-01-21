@@ -30,16 +30,20 @@ module.exports = async (user, channel, text = '', command = {}, botToken = null)
   const response = await client.post('/money-requests/send', {
     "sourceMoneyRequestId": uuidv1().replace(/-/g, ''),
     "requestedFrom": {
-          "contactId": contactData.contactId,
-          "contactHash": contactData.contactHash
-      },
+        "contactId": contactData.contactId,
+        "contactHash": contactData.contactHash
+    },
+    "invoice": {
+      "invoiceNumber": "3425423",
+      "dueDate": "2018-01-29T16:12:12.721Z"
+    },
     "amount": 322,
     "currency": "CAD",
     "editableFulfillAmount": false,
     "expiryDate": "2018-01-30T16:12:12.721Z",
     "supressResponderNotifications": false,
-    "returnURL": 'https://drdgvhbh.lib.id/slackpay@dev/notifications/'
-  });  
-
+    "requesterMessage": "hello"
+  }); 
+  //console.log(response); 
   return {text: 'Congratulations! Your request for money has been sent to ' + text + '.'};
 };

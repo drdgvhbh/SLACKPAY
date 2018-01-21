@@ -1,5 +1,5 @@
 const lib = require('lib')({token: process.env.STDLIB_TOKEN});
-const clientFactory = require('../../../helpers/clientFactory.js');
+const clientFactory = require('../../helpers/clientFactory.js');
 /**
 * /hello
 *

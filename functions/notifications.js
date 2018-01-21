@@ -7,7 +7,7 @@ const message = require('../utils/message.js');
 */
 module.exports = (context, callback) => {
   console.log("NOTIFICATIONS");
-  return message('xoxb-302083351237-IiSSUtvcoCYNZkbo5Kte7IIY', 'C8V93R9MW', {
+  return message(process.env.SLACK_BOT_TOKEN, 'C8V93R9MW', {
     text: 'Payment Received!'
   }, callback);
 };
