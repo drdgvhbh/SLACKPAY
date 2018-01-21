@@ -1,4 +1,5 @@
 const lib = require('lib')({token: process.env.STDLIB_TOKEN});
+const clientFactory = require('../../helpers/clientFactory.js');
 
 /**
 * /addContact
@@ -17,28 +18,37 @@ const lib = require('lib')({token: process.env.STDLIB_TOKEN});
 * @returns {object}
 */
 module.exports = async (user, channel, text = '', command = {}, botToken = null) => {
-  console.log(text);
   const client = await clientFactory();
-/*   const result = {};
+  var params = text.split(' ');
+  let responseText = 'Updated \"' + text + '\" contact.';
+  if (params.length != 3) {
+    responseText = '[Error] Paramaters must match \"contactName, handle, handleType\".';
+    throw new Error(responseText);
+  }
   try {
-    const response = await client.post('/contacts', {
+    const response = await client.put('/contacts/' + params[0], {
       "contactId": "string",
-      "contactName": uuidv1(),
+      "contactName": params[0],
       "contactHash": "string",
       "language": "en",
       "notificationPreferences": [
         {
-          "handle": text,
-          "handleType": "email",
+          "handle": params[1],
+          "handleType": params[2],
           "active": true
         }
       ]
     });  
-    result['contactId'] = response.data.contactId;
-    result['contactHash'] = response.data.contactHash;
-    console.log(result);
   } catch (err) {
     console.log(err);
-  } */
+    responseText = 'Failed to update \"' + params[0] + '\" contact. \"' + params[0] + '\" does not exist as a contact.';
+  }
+  const result = {
+    text: responseText,
+    attachments: [
+      // You can customize your messages with attachments.
+      // See https://api.slack.com/docs/message-attachments for more info.
+    ]
+  };
   return result;
 };
