@@ -1,5 +1,6 @@
 const lib = require('lib')({token: process.env.STDLIB_TOKEN});
 const clientFactory = require('../../helpers/clientFactory.js');
+const uuidv1 = require('uuid/v1');
 const message = require('../../utils/message.js');
 
 const addContact = require('./addcontact.js');
@@ -23,12 +24,14 @@ const addContact = require('./addcontact.js');
 module.exports = async (user, channel, text = '', command = {}, botToken = null) => {
   const contactData = await addContact(user, channel, text, command, botToken);
   message(botToken, channel, 'Okay. Adding ' + text + ' to contacts.', () => {});
-  const client = await clientFactory();
+  const client = await clientFactory(); 
   let responseText = text + ' was added to contacts.';
   try {
-    console.log(contactData);
+    const pileOfTrash = (uuidv1() + '').replace(/-/g, '');
+    console.log(pileOfTrash);
+  //  console.log(contactData);
     const response = await client.post('/money-requests/send', {
-      "sourceMoneyRequestId": "sourceidxxx",
+      "sourceMoneyRequestId": pileOfTrash,
       "requestedFrom": {
             "contactId": contactData.contactId,
             "contactHash": contactData.contactHash
@@ -38,7 +41,8 @@ module.exports = async (user, channel, text = '', command = {}, botToken = null)
       "editableFulfillAmount": false,
       "expiryDate": "2018-01-30T16:12:12.721Z",
       "supressResponderNotifications": false
-    });  
+    }); 
+    message(botToken, channel, 'Congratulations! Your money has been sent to ' + text, () => {});
   } catch (err) {
     //console.log(err);
   }
